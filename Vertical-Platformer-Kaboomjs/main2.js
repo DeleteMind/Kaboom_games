@@ -22,6 +22,30 @@ loadSpriteAtlas('assets/tileset.png', {
     'ground-deep': { x: 0, y: 144, width: 16, height: 16 }
 })
 
+// loadSprite for player
+
+loadSprite('idle-sprite', 'assets/Idle.png', {
+    sliceX: 8, sliceY: 1,
+    anims: { 'idle-anim': { from: 0, to: 7, loop: true } }
+})
+
+loadSprite('run-sprite', 'assets/Run.png', {
+    sliceX: 8, sliceY: 1,
+    anims: { 'run-anim': { from: 0, to: 7, loop: true } }
+})
+
+loadSprite('jump-sprite', 'assets/Jump.png', {
+    sliceX: 8, sliceY: 1,
+    anims: { 'jump-anim': { from: 0, to: 7, loop: true } }
+})
+
+loadSprite('fall-sprite', 'assets/Fall.png', {
+    sliceX: 8, sliceY: 1,
+    anims: { 'fall-anim': { from: 0, to: 7, loop: true } }
+})
+
+setGravity(1000);
+
 //add BACKGROUND
 
 add([
@@ -67,6 +91,23 @@ add([
     scale(4)
 ]).flipX = true
 
+// add trees
+
+const tree = add([
+    sprite('smaller-tree'),
+    scale(4),
+    pos(20, 190)
+
+])
+
+const biggerTree = add([
+    sprite('bigger-tree'),
+    scale(4),
+    pos(900, 105)
+])
+
+
+
 
 //add MAPLEVEL 
 
@@ -97,4 +138,29 @@ const map = addLevel([
     }
 })
 
+//  scale map variable
 map.use(scale(4))
+
+// add player
+
+const player = add([
+    sprite('idle-sprite'),
+    scale(2),
+    area({ shape: new Rect(vec2(0), 32, 32), offset: vec2(0, 32) }),
+    anchor('center'),
+    body(),
+    pos(900, 10),
+    {
+        speed: 500,
+        previousHeight: null,
+        heightDelta: 0,
+        direction: 'right'
+    }
+])
+
+player.play('idle-anim')
+
+onkeydown('right', () => {
+    player.move(-SPEED, 0)
+})
+//movement player Down and

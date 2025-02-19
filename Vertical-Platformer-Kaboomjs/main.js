@@ -134,7 +134,7 @@ const map = addLevel([
 ], {
     tileWidth: 16,
     tileHeight: 16,
-    tiles: {
+     tiles: {
         0: () => [
             sprite('platform-left'),
             area(),
